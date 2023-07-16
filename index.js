@@ -5,12 +5,14 @@ import { CardController, UserController } from './controllers/index.js';
 import { registerValidation, loginValidation } from './validation.js';
 import handleValidationErrors from './utils/handleValidationErrors.js';
 import checkAuth from './utils/checkAuth.js';
+import cors from 'cors';
 
 mongoose.connect('mongodb+srv://admin:admin123@cluster0.ovflhbn.mongodb.net/medabots?retryWrites=true&w=majority')
 	.then(() => console.log('DB OK'))
 	.catch((err) => console.log('DB Error:', err))
 
 const app = express();
+app.use(cors());
 
 app.use(express.json());
 
@@ -19,7 +21,6 @@ app.post('/auth/login', loginValidation, handleValidationErrors, UserController.
 app.get('/auth/me', checkAuth, UserController.getMe);
 
 app.get('/card', CardController.getAll);
-app.get('/card/:id', CardController.getOne);
 
 app.listen(4444, (err) => {
 	if (err) {

@@ -12,17 +12,3 @@ export const getAll = async (req, res) => {
 		})
 	}
 }
-
-export const getOne = async (req, res) => {
-	try {
-		const cardId = req.params.id;
-
-		const card = await CardModel.findOneAndUpdate({ id: cardId });
-		res.status(200).json(card);
-	} catch (error) {
-		console.log(error);
-		res.status(500).json({
-			message: 'Не вдалося получити статі'
-		})
-	}
-}
