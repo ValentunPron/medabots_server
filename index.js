@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 
-import { CardController, UserController } from './controllers/index.js';
+import { CardController, CartController, UserController } from './controllers/index.js';
 import { registerValidation, loginValidation } from './validation.js';
 import handleValidationErrors from './utils/handleValidationErrors.js';
 import checkAuth from './utils/checkAuth.js';
@@ -21,6 +21,10 @@ app.post('/auth/login', loginValidation, handleValidationErrors, UserController.
 app.get('/auth/me', checkAuth, UserController.getMe);
 
 app.get('/card', CardController.getAll);
+
+app.post('/cart/:id', checkAuth, handleValidationErrors, CartController.buyCard);
+app.delete('/cart/:id', checkAuth, CartController.remove);
+app.get('/cart', checkAuth, CartController.getBuyCard);
 
 app.listen(process.env.PORT || 4444, (err) => {
 	if (err) {

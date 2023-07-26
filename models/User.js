@@ -14,6 +14,10 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
+	buyCard: {
+		type: Array,
+		default: [],
+	},
 	},
 	{
 		timestamps: true
